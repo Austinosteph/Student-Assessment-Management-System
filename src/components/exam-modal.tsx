@@ -179,7 +179,10 @@ export function ExamModal({ isOpen, onClose, exam }: ExamModalProps) {
 									setFormData({ ...formData, dateDue: value })
 								}
 							>
-								<SelectTrigger className="bg-card border-border text-foreground">
+								<SelectTrigger
+									id="date"
+									className="bg-card border-border text-foreground"
+								>
 									<SelectValue placeholder="Select date" />
 								</SelectTrigger>
 								<SelectContent>
@@ -330,7 +333,7 @@ export function ExamModal({ isOpen, onClose, exam }: ExamModalProps) {
 										: 'text-muted-foreground'
 								}`}
 							>
-								No
+								id="date" No
 							</span>
 						</div>
 					</div>

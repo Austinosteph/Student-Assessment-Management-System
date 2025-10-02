@@ -30,7 +30,7 @@ export function ExamFilters() {
 		<div className="flex md:flex-row flex-col justify-between items-center gap-2 mb-8">
 			{/* Search */}
 			<div className="relative flex-1 md:min-w-[200px] min-w-[320px] max-w-[500px]">
-				<Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 md:h-10 w4 md:w-10 text-foreground" />
+				<Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 md:h-10 w-4 md:w-10 text-foreground" />
 				<Input
 					placeholder="Search"
 					value={filters.search}

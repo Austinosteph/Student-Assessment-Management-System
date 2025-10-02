@@ -14,7 +14,7 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-export default function ExamListPage() {
+export default function Dashboard() {
 	const { getFilteredExams, deleteExam } = useExamStore();
 	const { exportAsJSON, exportAsCSV } = useExport();
 	const filteredExams = getFilteredExams();

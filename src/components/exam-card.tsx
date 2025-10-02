@@ -46,7 +46,7 @@ export function ExamCard({ exam, onEdit, onDelete, onGrade }: ExamCardProps) {
 						<span className="text-foreground">Student Attempted:</span>
 						<span className="text-foreground font-medium flex">
 							{exam.maxPoints - exam.passingThreshold}/
-							<p className="font-bold">{exam.maxPoints}</p>
+							<span className="font-bold">{exam.maxPoints}</span>
 						</span>
 					</div>
 				</div>
