@@ -36,6 +36,7 @@ interface ExamStore {
 	getFilteredExams: () => Exam[];
 	toggleTheme: () => void;
 	exportExams: (format: 'json' | 'csv') => void;
+	logout: () => void;
 }
 
 const mockExams: Exam[] = [
@@ -47,7 +48,7 @@ const mockExams: Exam[] = [
 		dateDue: 'November 25, 2025',
 		weight: '35%',
 		maxPoints: 100,
-		passingThreshold: 50,
+		passingThreshold: 80,
 		status: 'Not Attempted',
 		course: 'Actuarial Vector Analysis',
 		description:
@@ -64,7 +65,7 @@ const mockExams: Exam[] = [
 		dateDue: 'November 25, 2025',
 		weight: '35%',
 		maxPoints: 100,
-		passingThreshold: 50,
+		passingThreshold: 90,
 		status: 'Not Attempted',
 		course: 'Actuarial Vector Analysis',
 		description:
@@ -81,7 +82,7 @@ const mockExams: Exam[] = [
 		dateDue: 'November 25, 2025',
 		weight: '35%',
 		maxPoints: 100,
-		passingThreshold: 50,
+		passingThreshold: 40,
 		status: 'Not Attempted',
 		course: 'Actuarial Vector Analysis',
 		description:
@@ -98,7 +99,7 @@ const mockExams: Exam[] = [
 		dateDue: 'November 26, 2025',
 		weight: '40%',
 		maxPoints: 100,
-		passingThreshold: 50,
+		passingThreshold: 30,
 		status: 'In Progress',
 		course: 'Quantum Mechanics',
 		description:
@@ -115,7 +116,7 @@ const mockExams: Exam[] = [
 		dateDue: 'November 27, 2025',
 		weight: '30%',
 		maxPoints: 100,
-		passingThreshold: 50,
+		passingThreshold: 79,
 		status: 'Completed',
 		course: 'Organic Chemistry',
 		description:
@@ -132,7 +133,7 @@ const mockExams: Exam[] = [
 		dateDue: 'November 24, 2025',
 		weight: '35%',
 		maxPoints: 100,
-		passingThreshold: 50,
+		passingThreshold: 56,
 		status: 'Not Attempted',
 		course: 'Linear Algebra',
 		description:
@@ -149,7 +150,7 @@ const mockExams: Exam[] = [
 		dateDue: 'November 28, 2025',
 		weight: '45%',
 		maxPoints: 100,
-		passingThreshold: 50,
+		passingThreshold: 43,
 		status: 'Not Attempted',
 		course: 'Structural Analysis',
 		description:
@@ -166,7 +167,7 @@ const mockExams: Exam[] = [
 		dateDue: 'December 5, 2025',
 		weight: '30%',
 		maxPoints: 100,
-		passingThreshold: 50,
+		passingThreshold: 30,
 		status: 'Not Attempted',
 		course: 'Calculus I',
 		description: 'Introduction to differential and integral calculus.',
@@ -196,7 +197,7 @@ const mockExams: Exam[] = [
 export const useExamStore = create<ExamStore>()(
 	persist(
 		(set, get) => ({
-			exams: mockExams,
+			exams: [],
 			filters: {
 				search: '',
 				dateRange: 'All Dates',
@@ -205,17 +206,12 @@ export const useExamStore = create<ExamStore>()(
 			},
 			theme: 'light',
 			setFilters: (newFilters) =>
-				set((state) => ({
-					filters: { ...state.filters, ...newFilters },
-				})),
+				set((state) => ({ filters: { ...state.filters, ...newFilters } })),
 			deleteExam: (id) =>
 				set((state) => ({
 					exams: state.exams.filter((exam) => exam.id !== id),
 				})),
-			addExam: (exam) =>
-				set((state) => ({
-					exams: [...state.exams, exam],
-				})),
+			addExam: (exam) => set((state) => ({ exams: [...state.exams, exam] })),
 			updateExam: (id, updatedExam) =>
 				set((state) => ({
 					exams: state.exams.map((exam) =>
@@ -224,7 +220,6 @@ export const useExamStore = create<ExamStore>()(
 				})),
 			getFilteredExams: () => {
 				const { exams, filters } = get();
-
 				return exams.filter((exam) => {
 					if (!exam.visible) return false;
 
@@ -237,22 +232,19 @@ export const useExamStore = create<ExamStore>()(
 					const matchesDate =
 						filters.dateRange === 'All Dates' ||
 						(filters.dateRange === '21-24 November' &&
-							(exam.dateDue.includes('November 21') ||
-								exam.dateDue.includes('November 22') ||
-								exam.dateDue.includes('November 23') ||
-								exam.dateDue.includes('November 24'))) ||
+							['November 21', '22', '23', '24'].some((d) =>
+								exam.dateDue.includes(d)
+							)) ||
 						(filters.dateRange === '25-28 November' &&
-							(exam.dateDue.includes('November 25') ||
-								exam.dateDue.includes('November 26') ||
-								exam.dateDue.includes('November 27') ||
-								exam.dateDue.includes('November 28'))) ||
+							['November 25', '26', '27', '28'].some((d) =>
+								exam.dateDue.includes(d)
+							)) ||
 						(filters.dateRange === 'December' &&
 							exam.dateDue.includes('December'));
 
 					const matchesSubject =
 						filters.subject === 'All Subjects' ||
 						exam.subject === filters.subject;
-
 					const matchesCategory =
 						filters.category === 'All Categories' ||
 						exam.category === filters.category;
@@ -273,22 +265,21 @@ export const useExamStore = create<ExamStore>()(
 					}
 					return { theme: newTheme };
 				}),
-			exportExams: (format) => {
+			exportExams: (format: 'json' | 'csv') => {
 				const { exams } = get();
 				if (format === 'json') {
 					const dataStr = JSON.stringify(exams, null, 2);
 					const dataUri =
 						'data:application/json;charset=utf-8,' +
 						encodeURIComponent(dataStr);
-					const exportFileDefaultName = `exams-${
+					const fileName = `exams-${
 						new Date().toISOString().split('T')[0]
 					}.json`;
-
-					const linkElement = document.createElement('a');
-					linkElement.setAttribute('href', dataUri);
-					linkElement.setAttribute('download', exportFileDefaultName);
-					linkElement.click();
-				} else if (format === 'csv') {
+					const link = document.createElement('a');
+					link.href = dataUri;
+					link.download = fileName;
+					link.click();
+				} else {
 					const headers = [
 						'ID',
 						'Title',
@@ -322,23 +313,45 @@ export const useExamStore = create<ExamStore>()(
 							].join(',')
 						),
 					].join('\n');
-
 					const dataUri =
 						'data:text/csv;charset=utf-8,' + encodeURIComponent(csvContent);
-					const exportFileDefaultName = `exams-${
+					const fileName = `exams-${
 						new Date().toISOString().split('T')[0]
 					}.csv`;
-
-					const linkElement = document.createElement('a');
-					linkElement.setAttribute('href', dataUri);
-					linkElement.setAttribute('download', exportFileDefaultName);
-					linkElement.click();
+					const link = document.createElement('a');
+					link.href = dataUri;
+					link.download = fileName;
+					link.click();
 				}
+			},
+			logout: () => {
+				set({
+					exams: [],
+					filters: {
+						search: '',
+						dateRange: 'All Dates',
+						subject: 'All Subjects',
+						category: 'All Categories',
+					},
+					theme: 'light',
+				});
+
+				localStorage.removeItem('exam-storage');
+				window.location.reload();
 			},
 		}),
 		{
 			name: 'exam-storage',
 			partialize: (state) => ({ exams: state.exams, theme: state.theme }),
+			version: 1,
 		}
 	)
 );
+
+// Optional: Initialize with mockExams if storage is empty
+if (typeof window !== 'undefined') {
+	const store = useExamStore.getState();
+	if (store.exams.length === 0) {
+		mockExams.forEach((exam) => store.addExam(exam));
+	}
+}

@@ -27,15 +27,15 @@ export function ExamFilters() {
 	} = useExamFilters();
 
 	return (
-		<div className="flex justify-between items-center gap-2 mb-8">
+		<div className="flex md:flex-row flex-col justify-between items-center gap-2 mb-8">
 			{/* Search */}
-			<div className="relative flex-1 min-w-[200px] max-w-[500px]">
-				<Search className="absolute left-3 top-1/2 -translate-y-1/2 h-10 w-10 text-muted-foreground" />
+			<div className="relative flex-1 md:min-w-[200px] min-w-[320px] max-w-[500px]">
+				<Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 md:h-10 w4 md:w-10 text-foreground" />
 				<Input
 					placeholder="Search"
 					value={filters.search}
 					onChange={(e) => updateSearch(e.target.value)}
-					className="rounded-3xl py-7 placeholder:text-center placeholder:text-xl pl-9 bg-card border-border transition-all duration-200 focus:ring-2 focus:ring-ring"
+					className="p-4 rounded-3xl md:py-7 py-5 placeholder:text-xl pl-14 bg-card border-border transition-all duration-200 focus:ring-2 focus:ring-ring"
 				/>
 			</div>
 
@@ -44,7 +44,7 @@ export function ExamFilters() {
 				<DropdownMenuTrigger asChild>
 					<Button
 						variant="outline"
-						className="flex-1 min-w-[100px] max-w-[300px] space-x-5 bg-card border-border hover:bg-accent transition-colors py-7 rounded-3xl"
+						className="flex-1 min-w-[320px] md:min-w-[100px] max-w-[300px] space-x-5 bg-card border-border hover:bg-accent transition-colors md:py-7 py-2 rounded-3xl"
 					>
 						<Calendar className="h-10 w-10" />
 						<span className="text-xl">{filters.dateRange}</span>
@@ -75,7 +75,7 @@ export function ExamFilters() {
 				<DropdownMenuTrigger asChild>
 					<Button
 						variant="outline"
-						className="gap-2 flex-1 min-w-[70px] max-w-[200px] bg-card border-border hover:bg-accent transition-colors py-7 rounded-3xl space-x-2"
+						className="gap-2 flex-1 min-w-[320px] md:min-w-[70px] max-w-[200px] bg-card border-border hover:bg-accent transition-colors md:py-7 py-2 rounded-3xl space-x-2"
 					>
 						<BookOpen className="h-10 w-10" />
 						<span className="text-xl">{filters.subject}</span>
@@ -109,7 +109,7 @@ export function ExamFilters() {
 				<DropdownMenuTrigger asChild>
 					<Button
 						variant="outline"
-						className="gap-2 bg-card border-border hover:bg-accent transition-colors py-7 rounded-3xl space-x-3"
+						className="gap-2 bg-card border-border hover:bg-accent transition-colors md:py-7 py-5 min-w-[320px] rounded-3xl space-x-3"
 					>
 						<FolderOpen className="h-10 w-10" />
 						<span className="text-xl"> {filters.category}</span>

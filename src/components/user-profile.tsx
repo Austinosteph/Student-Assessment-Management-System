@@ -1,3 +1,4 @@
+import { useExamStore } from '@/lib/store';
 import {
 	User,
 	Settings,
@@ -20,6 +21,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useTheme } from '@/hooks/use-theme';
 
 export function UserProfile() {
+	const logout = useExamStore((state) => state.logout);
 	const { theme, toggleTheme } = useTheme();
 
 	const handleProfile = () => {
@@ -40,6 +42,7 @@ export function UserProfile() {
 
 	const handleLogout = () => {
 		console.log('[v0] Logout user');
+		logout();
 	};
 
 	return (

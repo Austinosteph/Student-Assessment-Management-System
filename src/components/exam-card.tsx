@@ -1,5 +1,3 @@
-'use client';
-
 import { Pencil, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -46,8 +44,9 @@ export function ExamCard({ exam, onEdit, onDelete, onGrade }: ExamCardProps) {
 					</div>
 					<div className="flex justify-between">
 						<span className="text-foreground">Student Attempted:</span>
-						<span className="text-foreground font-medium">
-							{exam.maxPoints - exam.passingThreshold}/{exam.maxPoints}
+						<span className="text-foreground font-medium flex">
+							{exam.maxPoints - exam.passingThreshold}/
+							<p className="font-bold">{exam.maxPoints}</p>
 						</span>
 					</div>
 				</div>
@@ -66,10 +65,10 @@ export function ExamCard({ exam, onEdit, onDelete, onGrade }: ExamCardProps) {
 						<Button
 							variant="ghost"
 							size="icon"
-							className="h-8 w-8 text-foreground hover:text-destructive transition-colors"
+							className="h-8 w-8 text-red-600 hover:text-destructive transition-colors"
 							onClick={() => onDelete(exam.id)}
 						>
-							<Trash2 className="h-4 w-4" />
+							<Trash2 className="h-6 w-4" />
 						</Button>
 					</div>
 					<Button

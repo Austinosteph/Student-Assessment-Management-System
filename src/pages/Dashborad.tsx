@@ -1,11 +1,13 @@
 'use client';
 
+import { useState } from 'react';
 import { FileText, Download, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ExamCard } from '@/components/exam-card';
 import { ExamFilters } from '@/components/exam-filters';
 import { UserProfile } from '@/components/user-profile';
-import { useExamStore } from '@/lib/store';
+import { ExamModal } from '@/components/exam-modal';
+import { useExamStore, type Exam } from '@/lib/store';
 import { useExport } from '@/hooks/use-export';
 import {
 	DropdownMenu,
@@ -19,8 +21,15 @@ export default function ExamListPage() {
 	const { exportAsJSON, exportAsCSV } = useExport();
 	const filteredExams = getFilteredExams();
 
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [selectedExam, setSelectedExam] = useState<Exam | null>(null);
+
 	const handleEdit = (id: string) => {
-		console.log('[v0] Edit exam:', id);
+		const exam = filteredExams.find((e) => e.id === id);
+		if (exam) {
+			setSelectedExam(exam);
+			setIsModalOpen(true);
+		}
 	};
 
 	const handleDelete = (id: string) => {
@@ -34,7 +43,13 @@ export default function ExamListPage() {
 	};
 
 	const handleCreateExam = () => {
-		console.log('[v0] Create new exam');
+		setSelectedExam(null);
+		setIsModalOpen(true);
+	};
+
+	const handleCloseModal = () => {
+		setIsModalOpen(false);
+		setSelectedExam(null);
 	};
 
 	return (
@@ -83,7 +98,7 @@ export default function ExamListPage() {
 				<div className="flex justify-end gap-4">
 					<Button
 						variant="outline"
-						className="gap-2  bg-orange-200 text-accent-foreground border-border rounded-full px-6 p-6 hover:scale-105 transition-transform"
+						className="gap-2 bg-accent text-accent-foreground hover:bg-accent border-border rounded-full px-8 py-6 hover:scale-105 transition-transform"
 						onClick={handleCreateExam}
 					>
 						<FileText className="h-4 w-4" />
@@ -91,7 +106,7 @@ export default function ExamListPage() {
 					</Button>
 					<DropdownMenu>
 						<DropdownMenuTrigger asChild>
-							<Button className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6 p-6 hover:scale-105 transition-transform">
+							<Button className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 py-6 hover:scale-105 transition-transform">
 								<Download className="h-4 w-4" />
 								Export
 								<ChevronDown className="h-4 w-4 ml-1" />
@@ -111,6 +126,12 @@ export default function ExamListPage() {
 					</DropdownMenu>
 				</div>
 			</div>
+
+			<ExamModal
+				isOpen={isModalOpen}
+				onClose={handleCloseModal}
+				exam={selectedExam}
+			/>
 		</div>
 	);
 }
