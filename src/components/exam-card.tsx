@@ -18,32 +18,34 @@ export function ExamCard({ exam, onEdit, onDelete, onGrade }: ExamCardProps) {
 			<div className="space-y-4">
 				{/* Header */}
 				<div>
-					<h3 className="font-semibold text-foreground text-base leading-tight">
+					<h3 className="font-bold  text-foreground text-xl leading-tight">
 						{exam.title}
 					</h3>
-					<p className="text-sm text-muted-foreground mt-1">{exam.year}</p>
+					<p className="text-lg text-foreground font-semibold mt-1">
+						{exam.year}
+					</p>
 				</div>
 
 				{/* Details */}
 				<div className="space-y-2 text-sm">
 					<div className="flex justify-between">
-						<span className="text-muted-foreground">Date Created:</span>
+						<span className="text-foreground">Date Created:</span>
 						<span className="text-foreground font-medium">
 							{exam.dateCreated}
 						</span>
 					</div>
 					<div className="flex justify-between">
-						<span className="text-muted-foreground">Date Due:</span>
+						<span className="text-foreground">Date Due:</span>
 						<span className="text-foreground font-medium">{exam.dateDue}</span>
 					</div>
 					<div className="flex justify-between">
-						<span className="text-muted-foreground">Weight:</span>
+						<span className="text-foreground">Weight:</span>
 						<span className="text-foreground font-medium">
 							{exam.weight} of final grade
 						</span>
 					</div>
 					<div className="flex justify-between">
-						<span className="text-muted-foreground">Student Attempted:</span>
+						<span className="text-foreground">Student Attempted:</span>
 						<span className="text-foreground font-medium">
 							{exam.maxPoints - exam.passingThreshold}/{exam.maxPoints}
 						</span>
@@ -56,7 +58,7 @@ export function ExamCard({ exam, onEdit, onDelete, onGrade }: ExamCardProps) {
 						<Button
 							variant="ghost"
 							size="icon"
-							className="h-8 w-8 text-muted-foreground hover:text-foreground transition-colors"
+							className="h-8 w-8 text-foreground hover:text-foreground transition-colors"
 							onClick={() => onEdit(exam.id)}
 						>
 							<Pencil className="h-4 w-4" />
@@ -64,7 +66,7 @@ export function ExamCard({ exam, onEdit, onDelete, onGrade }: ExamCardProps) {
 						<Button
 							variant="ghost"
 							size="icon"
-							className="h-8 w-8 text-muted-foreground hover:text-destructive transition-colors"
+							className="h-8 w-8 text-foreground hover:text-destructive transition-colors"
 							onClick={() => onDelete(exam.id)}
 						>
 							<Trash2 className="h-4 w-4" />

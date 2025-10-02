@@ -83,7 +83,7 @@ export default function ExamListPage() {
 				<div className="flex justify-end gap-4">
 					<Button
 						variant="outline"
-						className="gap-2 bg-accent text-accent-foreground border-border rounded-full px-6 hover:scale-105 transition-transform"
+						className="gap-2  bg-orange-200 text-accent-foreground border-border rounded-full px-6 p-6 hover:scale-105 transition-transform"
 						onClick={handleCreateExam}
 					>
 						<FileText className="h-4 w-4" />
@@ -91,7 +91,7 @@ export default function ExamListPage() {
 					</Button>
 					<DropdownMenu>
 						<DropdownMenuTrigger asChild>
-							<Button className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6 hover:scale-105 transition-transform">
+							<Button className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6 p-6 hover:scale-105 transition-transform">
 								<Download className="h-4 w-4" />
 								Export
 								<ChevronDown className="h-4 w-4 ml-1" />
