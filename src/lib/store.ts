@@ -348,7 +348,7 @@ export const useExamStore = create<ExamStore>()(
 	)
 );
 
-// Optional: Initialize with mockExams if storage is empty
+// Initialize with mock data if empty
 if (typeof window !== 'undefined') {
 	const store = useExamStore.getState();
 	if (store.exams.length === 0) {
