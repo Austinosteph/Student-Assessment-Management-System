@@ -93,7 +93,7 @@ export default function Dashboard() {
 				)}
 
 				{/* Action Buttons */}
-				<div className="flex justify-end gap-4">
+				<div className="flex md:justify-end justify-center gap-4">
 					<Button
 						variant="outline"
 						className="gap-2 bg-accent text-accent-foreground hover:bg-accent border-border rounded-full px-8 py-6 hover:scale-105 transition-transform"
