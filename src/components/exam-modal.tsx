@@ -332,9 +332,7 @@ export function ExamModal({ isOpen, onClose, exam }: ExamModalProps) {
 										? 'text-foreground font-medium'
 										: 'text-muted-foreground'
 								}`}
-							>
-								id="date" No
-							</span>
+							></span>
 						</div>
 					</div>
 
