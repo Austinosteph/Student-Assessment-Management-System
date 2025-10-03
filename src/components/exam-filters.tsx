@@ -44,7 +44,7 @@ export function ExamFilters() {
 				<DropdownMenuTrigger asChild>
 					<Button
 						variant="outline"
-						className="flex-1 min-w-[320px] md:min-w-[200px] lg:min-w-[100px] max-w-[300px] space-x-5 bg-card border-border hover:bg-accent transition-colors md:py-7 py-2 rounded-3xl"
+						className="flex-1 min-w-[320px] md:min-w-[190px] lg:min-w-[100px] max-w-[200px] bg-card border-border hover:bg-accent transition-colors md:py-7 py-2 rounded-3xl"
 					>
 						<Calendar className="h-10 w-10" />
 						<span className="text-xl">{filters.dateRange}</span>
@@ -75,7 +75,7 @@ export function ExamFilters() {
 				<DropdownMenuTrigger asChild>
 					<Button
 						variant="outline"
-						className="gap-2 flex-1 min-w-[320px] md:min-w-[200px] lg:min-w-[70px] max-w-[200px] bg-card border-border hover:bg-accent transition-colors md:py-7 py-2 rounded-3xl space-x-2"
+						className="gap-2 flex-1 min-w-[320px] md:min-w-[170px] lg:min-w-[70px] max-w-[200px] bg-card border-border hover:bg-accent transition-colors md:py-7 py-2 rounded-3xl md:space-x-0 space-x-2 lg:space-x-2"
 					>
 						<BookOpen className="h-10 w-10" />
 						<span className="text-xl">{filters.subject}</span>
@@ -109,7 +109,7 @@ export function ExamFilters() {
 				<DropdownMenuTrigger asChild>
 					<Button
 						variant="outline"
-						className="gap-2 bg-card border-border hover:bg-accent transition-colors md:py-7 py-5 md:min-w-[200px] min-w-[320px]  lg:min-w-[320px] rounded-3xl space-x-3"
+						className="gap-2 bg-card border-border hover:bg-accent transition-colors md:py-7 py-5 md:min-w-[100px] min-w-[320px]  lg:min-w-[320px] rounded-3xl space-x-3"
 					>
 						<FolderOpen className="h-10 w-10" />
 						<span className="text-xl"> {filters.category}</span>
